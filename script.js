@@ -34,10 +34,10 @@ document.getElementById('taskForm').addEventListener('submit', async (e) => {
   
     
     const taskName = document.getElementById('taskName').value;
-    const taskStatus = document.getElementById('taskStatus').value;
+    const taskStatus = 'Pending';
   
-    if (!taskName || !taskStatus) {
-      alert('Task name and status are required!');
+    if (!taskName) {
+      alert('Task name is required!');
       return;  
     }
   
