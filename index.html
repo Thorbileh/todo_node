@@ -9,19 +9,15 @@
 <body>
   <h1>Todo App</h1>
 
-  <h3>Add Task</h3>
+  
   <form id="taskForm">
+    <h3>Add Task</h3>
     <input type="text" id="taskName" placeholder="Task Name" required>
-    <select id="taskStatus" required>=
-      <option value="Pending">Pending</option>
-      <option value="Completed">Completed</option>
-    </select>
-    <button type="submit">Add Task</button>
+    <button type="submit" id="addBtn">Add Task</button>
+
   </form>
 
-  <h3>Tasks</h3>
-  <div id="tasks"></div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  <h3 id="headerTask">Tasks</h3>
+  <div id="tasks">
+    </div>
+  </div>
