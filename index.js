@@ -9,13 +9,6 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'tododb',
-    password: '',
-    port: 5432,
-})
 
 app.get('/displayTask', async(req, res) =>{
 
