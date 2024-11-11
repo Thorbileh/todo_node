@@ -30,8 +30,7 @@ async function loadTasks() {
 
 // Add task
 document.getElementById('taskForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
+    e.preventDefault();  
     
     const taskName = document.getElementById('taskName').value;
     const taskStatus = 'Pending';
