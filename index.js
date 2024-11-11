@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Pool } = require('pg');
+const pool = require('./pool.js');
 const path = require('path');
 
 const app = express();
