@@ -71,27 +71,27 @@ async function updateTask(tasks_id) {
     const res = await fetch(`${apiUrl}/displayTask/${tasks_id}`);
     const taskData = await res.json();
 
-   
+
     if (!taskData || taskData.length === 0) {
       console.error(`Task with ID ${tasks_id} not found.`);
       alert('Task not found.');
       return;
     }
 
- 
+
     const task = Array.isArray(taskData) ? taskData[0] : taskData;
 
- 
+
     if (task.task_status === 'Completed') {
       alert('Task cannot be updated. It is already completed.');
       return;
     }
 
- 
+
     const newTaskName = prompt('Enter new task name:', task.task_name);
     const newTaskStatus = prompt('Enter new task status (Pending/Completed):');
 
-   
+
     if (newTaskStatus !== 'Pending' || newTaskStatus !== 'Completed') {
       alert('Task status should be "Pending" or "Completed".');
       return;
@@ -118,9 +118,9 @@ async function updateTask(tasks_id) {
 
     if (response.ok) {
       console.log(`Task ${tasks_id} updated successfully.`);
-      await loadTasks(); // Reload tasks after updating
+      await loadTasks(); 
     } else {
-      // Log error details for debugging
+      
       const errorText = await response.text();
       console.error(`Failed to update task. Server response: ${errorText}`);
       alert('Failed to update task: ' + errorText);
