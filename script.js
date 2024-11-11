@@ -64,3 +64,55 @@ document.getElementById('taskForm').addEventListener('submit', async (e) => {
     }
   });
 
+// Update task
+async function updateTask(tasks_id) {
+
+  const res = await fetch(`${apiUrl}/displayTask/${tasks_id}`);
+  const tasks = await res.json();
+
+  const taskName = tasks[0].task_status;
+
+  if (taskName === 'Completed') {
+    alert('Task cannot be updated. It is already completed.');
+    return;
+  }
+
+    const newTaskName = prompt('Enter new task name:');
+    const newTaskStatus = prompt('Enter new task status (Pending/Completed):');
+  
+    if (!newTaskName || !newTaskStatus) {
+      alert('Task name and status are required!');
+      return;
+    }
+  
+    const response = await fetch(`${apiUrl}/updateTask/${tasks_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ task_name: newTaskName, task_status: newTaskStatus }),
+    });
+  
+    if (response.ok) {
+      loadTasks();
+    } else {
+      alert('Failed to update task: ' + (await response.text()));
+    }
+  }
+
+// Delete task
+async function deleteTask(tasks_id) {
+  const response = await fetch(`${apiUrl}/deleteTask/${tasks_id}`, {
+    method: 'DELETE',
+  });
+
+  if (response.ok) {
+    loadTasks();
+  } else {
+    alert('Failed to delete task: ' + (await response.text()));
+  }
+}
+
+// Initial load
+loadTasks();
+
