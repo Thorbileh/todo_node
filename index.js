@@ -9,7 +9,6 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 
-
 app.get('/displayTask', async(req, res) =>{
 
     try {
