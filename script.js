@@ -65,72 +65,66 @@ document.getElementById('taskForm').addEventListener('submit', async (e) => {
 
 // Update task
 
-async function updateTask(tasks_id) {
-  try {
-    
-    const res = await fetch(`${apiUrl}/displayTask/${tasks_id}`);
-    const taskData = await res.json();
-
-
-    if (!taskData || taskData.length === 0) {
-      console.error(`Task with ID ${tasks_id} not found.`);
-      alert('Task not found.');
-      return;
-    }
-
-
-    const task = Array.isArray(taskData) ? taskData[0] : taskData;
-
-
-    if (task.task_status === 'Completed') {
-      alert('Task cannot be updated. It is already completed.');
-      return;
-    }
-
-
-    const newTaskName = prompt('Enter new task name:', task.task_name);
-    const newTaskStatus = prompt('Enter new task status (Pending/Completed):');
-
-
-    if (newTaskStatus !== 'Pending' || newTaskStatus !== 'Completed') {
-      alert('Task status should be "Pending" or "Completed".');
-      return;
-    }
-
-    
-    if (!newTaskName || !newTaskStatus) {
-      alert('Task name and status are required!');
-      return;
-    }
-
+ async function updateTask(tasks_id) {
+    try {
+     
+      const res = await fetch(`${apiUrl}/displayTask/${tasks_id}`);
+      const taskData = await res.json();
   
-    console.log(`Updating task ID: ${tasks_id}`);
-    console.log(`New task name: ${newTaskName}, New task status: ${newTaskStatus}`);
+  
+      if (!taskData || taskData.length === 0) {
+        console.error(`Task with ID ${tasks_id} not found.`);
+        alert('Task not found.');
+        return;
+      }
+  
+      const task = Array.isArray(taskData) ? taskData[0] : taskData;
+  
+      if (task.task_status === 'Completed') {
+        alert('Task cannot be updated. It is already completed.');
+        return;
+      }
 
-    
-    const response = await fetch(`${apiUrl}/updateTask/${tasks_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ task_name: newTaskName, task_status: newTaskStatus }),
-    });
-
-    if (response.ok) {
-      console.log(`Task ${tasks_id} updated successfully.`);
-      await loadTasks(); 
-    } else {
+      const newTaskName = prompt('Enter new task name:', task.task_name);
+      const newTaskStatus = prompt('Enter new task status (Pending/Completed):');
+  
+      if (newTaskStatus.toLowerCase() !== 'pending' && newTaskStatus.toLowerCase() !== 'completed') {
+        alert('Task status should be "Pending" or "Completed".');
+        return;
+      }
       
-      const errorText = await response.text();
-      console.error(`Failed to update task. Server response: ${errorText}`);
-      alert('Failed to update task: ' + errorText);
-    }
-  } catch (error) {
-    console.error('Error updating task:', error);
-    alert('An error occurred while updating the task.');
-  }
-}
 
+      if (!newTaskName || !newTaskStatus) {
+        alert('Task name and status are required!');
+        return;
+      }
+  
+   
+      console.log(`Updating task ID: ${tasks_id}`);
+      console.log(`New task name: ${newTaskName}, New task status: ${newTaskStatus}`);
+  
+      const response = await fetch(`${apiUrl}/updateTask/${tasks_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ task_name: newTaskName, task_status: newTaskStatus }),
+      });
+  
+      if (response.ok) {
+        console.log(`Task ${tasks_id} updated successfully.`);
+        await loadTasks(); 
+      } else {
+
+        const errorText = await response.text();
+        console.error(`Failed to update task. Server response: ${errorText}`);
+        alert('Failed to update task: ' + errorText);
+      }
+    } catch (error) {
+      console.error('Error updating task:', error);
+      alert('An error occurred while updating the task.');
+    }
+  }
 
 // Delete task
 async function deleteTask(tasks_id) {
