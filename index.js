@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Pool } = require('pg');
+const pool = require('./pool.js');
 const path = require('path');
 
 const app = express();
@@ -8,14 +8,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname)));
 
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'tododb',
-    password: '',
-    port: 5432,
-})
 
 app.get('/displayTask', async(req, res) =>{
 
