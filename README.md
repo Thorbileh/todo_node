@@ -12,7 +12,7 @@ This is a Todo App that allows users to:
 - **Delete** tasks when they are no longer needed
 - Tasks are saved locally (in your browser) so they persist after refreshing the page
 
-Built using **HTML**, **CSS**, and **JavaScript** with no external frameworks.
+Built using **HTML**, **CSS**, **JavaScript**, and **PostgreSQL** database.
 
 
 ## Installation
